@@ -5,6 +5,7 @@ var mongojs = require("mongojs");
 var bodyparser = require("body-parser");
 var cheerio = require("cheerio");
 var request = require("request");
+var PORT = process.env.PORT || 3000;
 
 // Initialize Express
 var app = express();
@@ -23,13 +24,13 @@ var app = express();
 // https://www.philosophybasics.com/branch_metaphysics.html
 
     
-// If deployed, use the deployed database. Otherwise use the local mongoHeadlines database
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+// // If deployed, use the deployed database. Otherwise use the local mongoHeadlines database
+// var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 
-// Set mongoose to leverage built in JavaScript ES6 Promises
-// Connect to the Mongo DB
-mongoose.Promise = Promise;
-mongoose.connect(MONGODB_URI);
+// // Set mongoose to leverage built in JavaScript ES6 Promises
+// // Connect to the Mongo DB
+// mongoose.Promise = Promise;
+// mongoose.connect(MONGODB_URI);
 
 app.engine('.hbs', exphbs({
     extname: '.hbs',
@@ -83,7 +84,7 @@ app.get("/scrape", function(req, res) {
 
 
 // Listen on port 3000
-app.listen(3000, function() {
-    console.log("App running on port 3000!");
+app.listen(PORT, function() {
+    console.log(`App listening on localhost ${PORT}`);
 });
   
