@@ -6,6 +6,7 @@ var bodyparser = require("body-parser");
 var cheerio = require("cheerio");
 var request = require("request");
 var PORT = process.env.PORT || 3000;
+var scrapeURL = "https://www.philosophybasics.com/branch_metaphysics.html";
 
 // Initialize Express
 var app = express();
@@ -29,6 +30,9 @@ app.engine('.hbs', exphbs({
 app.set('view engine', '.hbs');
 
 app.get('/', function (req, res) {
+    request(scrapeURL, function(err, status, html) {
+        console.log(html);
+    })
     res.render("index"); //knows that its a handlebar thru rendering engine
 });
 
