@@ -16,5 +16,13 @@
   "bugs": {
     "url": "https://github.com/AndrewABowden/Mongo-Scraper/issues"
   },
-  "homepage": "https://github.com/AndrewABowden/Mongo-Scraper#readme"
+  "homepage": "https://github.com/AndrewABowden/Mongo-Scraper#readme",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "express": "^4.16.3",
+    "express-handlebars": "^3.0.0",
+    "mongojs": "^2.6.0",
+    "mongoose": "^5.2.9",
+    "request": "^2.88.0"
+  }
 }
