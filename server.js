@@ -18,6 +18,8 @@ app.use(express.static("public"));
 // // If deployed, use the deployed database. Otherwise use the local mongoHeadlines database
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 
+var Article = require("./models/Article");
+
 // Set mongoose to leverage built in JavaScript ES6 Promises
 // Connect to the Mongo DB
 mongoose.Promise = Promise;
@@ -74,38 +76,28 @@ app.get("/scrape", function(req, res) {
         // Save the text and href of each link enclosed in the current element
         // var title = $(element).children("a").text();
         // var link = $(element).children("a").attr("href");
-        scrapeData.push(data);
-      }); res.send()
-       
-       
-    //     // If this found element had both a title and a link
-    //     if (title && link) {
-    //       // Insert the data in the scrapedData db
-    //       db.scrapedData.insert({
-    //         title: title,
-    //         link: link
-    //       },
-    //       function(err, inserted) {
-    //         if (err) {
-    //           // Log the error if one is encountered during the query
-    //           console.log(err);
-    //         }
-    //         else {
-    //           // Otherwise, log the inserted data
-    //           console.log(inserted);
-    //         }
-    //       });
-    //     }
-    //   });
-    // });
-  
-    // Send a "Scrape Complete" message to the browser
-    res.send("Scrape Complete");
-  });
+
+        Article.create(data); //this adds mongoose and replaces scrapeurl
+      }); res.send("articles are scrapin!!")
+     });
+});
+
+
+
+//grabs default folder and uses Article constructor to grab data from mongoose so we can display it in the index
+app.get("/", function(req, res){
+    Article.findAll({}).then(function(dbArticles) {
+        console.log(dbArticles);
+        res.render("index", {dbArticle: dbArticles});
+    });
+});
+
+//how to pass data from express to my handlebars few. res.render('index"), {tickets:tickets});
+ 
+
 
 
 // Listen on port 3000
 app.listen(PORT, function() {
     console.log(`App listening on localhost ${PORT}`);
 });
-  
